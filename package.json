@@ -1,0 +1,15 @@
+{
+  "name": "dresso",
+  "version": "1.0.0",
+  "description": "clothing management",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "client": "npm start --prefix frontend/dresso"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
