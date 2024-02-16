@@ -1,13 +1,41 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useUserRegisterMutation } from "../../store/api/userApiSlice";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../store/authSlice";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-    const submitHandler = (e) => {};
+  const dispatch = useDispatch();
+
+  const [
+    userRegister,
+    { isLoading: RegisteringUser, error: errorWhileRegistering },
+  ] = useUserRegisterMutation();
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    if (confirmPassword !== password) {
+      toast.error("Please match password");
+      return;
+    }
+    try {
+      const res = await userRegister({
+        name,
+        email,
+        password,
+      }).unwrap();
+      if (res) {
+        dispatch(setCredentials(res));
+      }
+    } catch (error) {}
+  };
+
   return (
     <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
       <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
@@ -86,7 +114,7 @@ const SignUp = () => {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;

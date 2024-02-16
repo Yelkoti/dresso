@@ -23,6 +23,19 @@ const authUser = asyncHandler(async (req, res) => {
     }
 });
 
+//@desc     Logout user from session
+//@route    Post /users/logout
+//@access   Private
+const logoutUser = asyncHandler(async (req, res) => {
+    res.cookie('jwt', '', {
+        httpOnly: true,
+        expires: new Date(0),
+    });
+    res.status(200).json({
+        message: "Logged out successfully"
+    })
+});
+
 //@desc     Auth user and get token
 //@route    Post /users
 //@access   Public
@@ -53,4 +66,4 @@ const userRegisteration = asyncHandler(async (req, res) => {
 });
 
 
-export { authUser, userRegisteration };
+export { authUser, logoutUser, userRegisteration };
