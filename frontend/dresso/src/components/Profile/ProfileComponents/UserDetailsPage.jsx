@@ -56,9 +56,10 @@ const UserDetailsPage = () => {
       className="flex flex-col bg-white border p-2 rounded-md shadow-xl space-y-2 flex-1 mx-4"
       style={{ height: `calc(100% - 2px)` }}
     >
-      <p className="flex justify-center font-bold text-gray-600">
+      <p className="flex justify-start font-bold text-gray-600">
         User Information
       </p>
+      <hr />
       <InputText label="name" value={name} handlerFunc={nameHandler} />
       <InputText label="email" value={email} handlerFunc={emailHandler} />
     </div>

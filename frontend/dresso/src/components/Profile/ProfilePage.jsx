@@ -6,7 +6,6 @@ import { CgDetailsMore } from "react-icons/cg";
 import { Outlet } from "react-router-dom";
 
 const ProfilePage = () => {
-
   const isTab = useMediaQuery({
     query: "(min-width: 640px)",
   });
@@ -36,12 +35,12 @@ const ProfilePage = () => {
 
   const moreOptionHandler = () => {
     setMoreOptions(false);
-  }
+  };
 
   return (
     <div
       className="flex justify-start cursor-pointer relative"
-      onClick={(e) => handleBackgroundClick(e)}
+      {...(moreOptions ? { onClick: (e) => handleBackgroundClick(e) } : {})}
     >
       {!isTab ? (
         !moreOptions ? (
@@ -49,13 +48,22 @@ const ProfilePage = () => {
             <CgDetailsMore onClick={(e) => setMoreOptions(true)} />
           </div>
         ) : (
-          <div ref={sideBarRef} className="absolute min-h-40 ml-4 mt-8 bg-gray-200 p-2 rounded-md shadow-xl">
-            <ProfilePageSideBar moreOptionHandler={moreOptionHandler} isTab={isTab} />
+          <div
+            ref={sideBarRef}
+            className="absolute min-h-40 ml-4 mt-8 bg-gray-200 p-2 rounded-md shadow-xl"
+          >
+            <ProfilePageSideBar
+              moreOptionHandler={moreOptionHandler}
+              isTab={isTab}
+            />
           </div>
         )
       ) : (
         <div className="flex border min-h-screen p-2 bg-white rounded-r-md shadow-xl">
-          <ProfilePageSideBar moreOptionHandler={moreOptionHandler} isTab={isTab} />
+          <ProfilePageSideBar
+            moreOptionHandler={moreOptionHandler}
+            isTab={isTab}
+          />
         </div>
       )}
       <Outlet />
