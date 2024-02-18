@@ -21,7 +21,7 @@ const AddShirt = () => {
         description,
       }).unwrap();
       toast.success("Added Shirt Details");
-      navigate('/shirts');
+      navigate('/profile');
     } catch (error) {
       
     }
