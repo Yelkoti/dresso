@@ -16,13 +16,22 @@ import store from "./store";
 import { Provider } from "react-redux";
 import SignUp from "./components/AuthComponents/SignUp";
 import ProfilePage from "./components/Profile/ProfilePage";
+import UserDetailsPage from "./components/Profile/ProfileComponents/UserDetailsPage";
+import UserPasswordChange from "./components/Profile/ProfileComponents/UserPasswordChange";
+import AddShirt from "./components/Profile/ProfileComponents/AddShirt";
+import AddPant from "./components/Profile/ProfileComponents/AddPant";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/" element={<Auth />}>
         <Route index={true} path="/" element={<Home />} />
-        <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/profile' element={<ProfilePage />} >
+          <Route index={true} element={<UserDetailsPage />} />
+          <Route path="/profile/password" element={<UserPasswordChange />} />
+          <Route path="/profile/shirt" element={<AddShirt />} />
+          <Route path="/profile/pant" element={<AddPant />} />
+        </Route>
       </Route>
       <Route path="/auth" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
