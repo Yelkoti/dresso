@@ -7,14 +7,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen bg-gray-200">
       <Header />
       <ToastContainer />
-      <main className="py-3">
+      <main className="py-3 flex-grow">
         <Outlet />
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 

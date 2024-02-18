@@ -37,12 +37,12 @@ const NavBar = () => {
   });
 
   return (
-    <nav className="bg-gray-400 flex py-3 justify-between px-6">
-      <Link className="font-bold text-gray-600" to="/">
+    <nav className="bg-gray-700 flex py-3 justify-between px-6">
+      <Link className="font-bold text-white" to="/">
         Jacob
       </Link>
       {userInfo && (
-        <div className="flex justify-end space-x-3">
+        <div className="flex justify-end space-x-3 text-white font-bold">
           {!isTab && !isDesktop ? (
             <>
               {!toggleMoreOption ? (
@@ -62,8 +62,8 @@ const NavBar = () => {
                     }`}
                     onClick={(e) => toggleOptionHandler()}
                   >
-                    <div className="bg-white p-4 rounded-md flex flex-col">
-                      <Link to="/">Profile</Link>
+                    <div className="bg-white p-4 rounded-md flex flex-col text-gray-600">
+                      <Link to="/profile">Profile</Link>
                       <Link to="/">Shirts</Link>
                       <Link to="/">Pants</Link>
                       <Link to="/auth" onClick={(e) => logoutHandler()}>
@@ -76,7 +76,7 @@ const NavBar = () => {
             </>
           ) : (
             <>
-              <Link to="/">Profile</Link>
+              <Link to="/profile">Profile</Link>
               <Link to="/about">Shirts</Link>
               <Link to="/testimonials">Pants</Link>
               <Link to="/auth" onClick={(e) => logoutHandler()}>Logout</Link>

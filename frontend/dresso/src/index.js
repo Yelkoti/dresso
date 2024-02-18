@@ -15,12 +15,14 @@ import Home from "./components/Home/Home";
 import store from "./store";
 import { Provider } from "react-redux";
 import SignUp from "./components/AuthComponents/SignUp";
+import ProfilePage from "./components/Profile/ProfilePage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/" element={<Auth />}>
         <Route index={true} path="/" element={<Home />} />
+        <Route path='/profile' element={<ProfilePage />} />
       </Route>
       <Route path="/auth" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
