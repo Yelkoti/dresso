@@ -28,4 +28,4 @@ const addPantDetails = asyncHandler(async (req, res) => {
   }
 });
 
-export {addPantDetails};
+export { addPantDetails };

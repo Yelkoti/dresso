@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import asyncHandler from "./asyncHandler.js";
 import User from "../models/userModel.js";
 
-const  protect = asyncHandler(async (req, res, next) => {
+const protect = asyncHandler(async (req, res, next) => {
   let token;
   token = req.cookies.jwt;
   if (token) {
@@ -14,7 +14,7 @@ const  protect = asyncHandler(async (req, res, next) => {
       res.status(404);
       throw new Error("Not authorized, token failed");
     }
-  } else { 
+  } else {
     res.status(404);
     throw new Error("Not authorized, no token");
   }
