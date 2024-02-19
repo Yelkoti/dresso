@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
-import { toast } from 'react-toastify';
-import { useAddPantMutation } from '../../../store/api/pantApiSlice';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import { useAddPantMutation } from "../../../store/api/pantApiSlice";
+import { useNavigate } from "react-router-dom";
 
-const AddShirt = () => {
-
+const AddPant = () => {
   const [imageSrc, setImageSrc] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
-  const [addPant, { isLoading: addingPantDetails, error: errorWhileAddingPant }] = useAddPantMutation();
+  const [
+    addPant,
+    { isLoading: addingPantDetails, error: errorWhileAddingPant },
+  ] = useAddPantMutation();
   const navigate = useNavigate();
 
   const submitHandler = async (e) => {
@@ -20,12 +22,12 @@ const AddShirt = () => {
         name,
         description,
       }).unwrap();
-      toast.success("Added Shirt Details");
-      navigate('/profile');
+      toast.success("Added Pant Details");
+      navigate("/profile");
     } catch (error) {
-      
+      toast.error("Something went wrong while adding Pant Details")
     }
-  }
+  };
 
   const imageHandler = (e) => {
     console.log(e);
@@ -33,18 +35,21 @@ const AddShirt = () => {
     reader.readAsDataURL(e.target.files[0]);
     reader.onload = () => {
       setImageSrc(reader.result);
-    }
-    reader.onerror = error => {
+    };
+    reader.onerror = (error) => {
       toast.error("Image not uploaded");
-    }
-  }
+    };
+  };
+
   return (
     <form
       action="submit"
       className="flex flex-col bg-white border p-2 rounded-md shadow-xl space-y-2 flex-1 mx-4"
       onSubmit={(e) => submitHandler(e)}
     >
-      <p className="font-bold text-gray-600 justify-center flex sm:justify-start text-2xl">Add Pant</p>
+      <p className="font-bold text-gray-600 justify-center flex sm:justify-start text-2xl">
+        Add Pant
+      </p>
       <hr />
       <div className="flex flex-col sm:flex-row">
         <p className="mr-2 w-24 font-bold text-gray-600">Image</p>
@@ -52,7 +57,7 @@ const AddShirt = () => {
           className={`py-1 px-2 border-2 font-bold text-gray-600 rounded-md focus:shadow-outline-blue`}
           type="file"
           onChange={(e) => imageHandler(e)}
-          accept='image/jpeg, image/png, image/jpg'
+          accept="image/jpeg, image/png, image/jpg"
         />
       </div>
       <div className="flex flex-col sm:flex-row">
@@ -77,7 +82,7 @@ const AddShirt = () => {
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default AddShirt
+export default AddPant;

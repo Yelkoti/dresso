@@ -1,10 +1,11 @@
 import express from "express";
-import connectDB from './configurations/db.js'
+import connectDB from './configurations/db.js';
 import cookieParser from 'cookie-parser';
 import userRouters from './routes/userRoutes.js'
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import shirtRouters from './routes/shirtRoutes.js'
+import shirtRouters from './routes/shirtRoutes.js';
+import pantRouters from './routes/pantRoutes.js';
 
 dotenv.config();
 
@@ -26,5 +27,6 @@ app.use(cookieParser());
 
 app.use('/users', userRouters);
 app.use('/shirt', shirtRouters);
+app.use('/pant', pantRouters);
 
 app.listen(port, () => console.log(`server running on port ${port}`));
