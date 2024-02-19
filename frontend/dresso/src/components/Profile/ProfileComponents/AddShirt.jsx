@@ -25,7 +25,7 @@ const AddShirt = () => {
       toast.success("Added Shirt Details");
       navigate("/profile");
     } catch (error) {
-      toast.error("Something went wrong while adding Shirt Details")
+      toast.error("Something went wrong while adding Shirt Details");
     }
   };
 

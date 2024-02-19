@@ -77,10 +77,7 @@ const InputText = ({ label, value, handlerFunc }) => {
               className="border-2 rounded-3xl bg-blue-400 text-white items-center cursor-pointer"
               onClick={tickHandler}
             />
-            <RxCrossCircled
-              className="cursor-pointer"
-              onClick={crossHandler}
-            />
+            <RxCrossCircled className="cursor-pointer" onClick={crossHandler} />
           </div>
         )}
       </div>

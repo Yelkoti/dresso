@@ -79,7 +79,9 @@ const NavBar = () => {
               <Link to="/profile">Profile</Link>
               <Link to="/about">Shirts</Link>
               <Link to="/testimonials">Pants</Link>
-              <Link to="/auth" onClick={(e) => logoutHandler()}>Logout</Link>
+              <Link to="/auth" onClick={(e) => logoutHandler()}>
+                Logout
+              </Link>
             </>
           )}
         </div>

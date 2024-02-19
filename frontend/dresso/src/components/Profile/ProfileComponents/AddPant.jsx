@@ -25,7 +25,7 @@ const AddPant = () => {
       toast.success("Added Pant Details");
       navigate("/profile");
     } catch (error) {
-      toast.error("Something went wrong while adding Pant Details")
+      toast.error("Something went wrong while adding Pant Details");
     }
   };
 
