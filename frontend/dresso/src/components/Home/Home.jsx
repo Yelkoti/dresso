@@ -1,5 +1,6 @@
-import Carousel from "../MultiComponents/Carousel";
 import React from "react";
+import { Link } from "react-router-dom";
+import Carousel from "../MultiComponents/Carousel";
 import { useMediaQuery } from "react-responsive";
 
 const shirts = [
@@ -20,27 +21,51 @@ const Home = () => {
   });
 
   return (
-    <div className="sm:w-[80%] sm:m-auto">
-      <div className="flex p-4 flex-col sm:m-auto sm:flex-row">
-        <Carousel slides={shirts} />
-        <div className="p-2 font-semibold text-gray-800">
-          <p>
-            An anime television series adaptation, produced by Toei Animation,
-            premiered on Fuji TV on October 20, 1999; the series reached its
-            1,000th episode in November 2021.
-          </p>
+    <div>
+      <div className="sm:w-[80%] sm:m-auto space-y-2">
+        <div className="flex p-4 flex-col sm:m-auto sm:flex-row bg-white rounded-md hover:shadow-md">
+          <Carousel slides={shirts} />
+          <div className="p-2 font-semibold text-gray-800 md:m-auto">
+            <p>
+              Add your Shirt and keep a track of it. Move your Shirt
+              accourdingly from washed to unwashed, and keep the track of number
+              of days it is been used.
+            </p>
+            <div className="flex justify-center space-x-4 mt-4">
+              <Link
+                to="/profile/shirt"
+                className="bg-gray-600 text-white rounded-md py-1 px-2 hover:bg-gray-400 hover:shadow-lg"
+              >
+                Add Shirt
+              </Link>
+              <Link className="bg-gray-600 text-white rounded-md py-1 px-2 hover:bg-gray-400 hover:shadow-lg">
+                Track Shirts
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="flex p-4 flex-col sm:m-auto sm:flex-row">
-        <div className="p-2 font-semibold text-gray-800">
+        <div className="flex p-4 flex-col sm:m-auto sm:flex-row bg-white rounded-md hover:shadow-md">
           {!isTab && <Carousel slides={pants} />}
-          <p>
-            An anime television series adaptation, produced by Toei Animation,
-            premiered on Fuji TV on October 20, 1999; the series reached its
-            1,000th episode in November 2021.
-          </p>
+          <div className="p-2 font-semibold text-gray-800 md:m-auto">
+            <p>
+              Add your Pant and keep a track of it. Move your Pant accourdingly
+              from washed to unwashed, and keep the track of number of days it
+              is been used.
+            </p>
+            <div className="flex justify-center space-x-4 mt-4">
+              <Link
+                to="/profile/pant"
+                className="bg-gray-600 text-white rounded-md py-1 px-2 hover:bg-gray-400 hover:shadow-lg"
+              >
+                Add Pant
+              </Link>
+              <Link className="bg-gray-600 text-white rounded-md py-1 px-2 hover:bg-gray-400 hover:shadow-lg">
+                Track Pants
+              </Link>
+            </div>
+          </div>
+          {isTab && <Carousel slides={pants} />}
         </div>
-        {isTab && <Carousel slides={pants} />}
       </div>
     </div>
   );

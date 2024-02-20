@@ -22,7 +22,7 @@ const Carousel = ({ slides }) => {
         }}
       >
         {slides.map((s) => {
-          return <img src={s} />;
+          return <img src={s} className="rounded-md" />;
         })}
       </div>
     </div>
