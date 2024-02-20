@@ -39,7 +39,7 @@ const NavBar = () => {
 
   return (
     <nav className="bg-gray-700 flex py-3 justify-between px-6">
-      <Link className="font-bold text-white" to="/">
+      <Link className="font-bold text-white text-xl" to="/">
         Jacob
       </Link>
       {userInfo && (
