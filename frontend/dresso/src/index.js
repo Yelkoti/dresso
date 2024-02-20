@@ -20,6 +20,7 @@ import UserDetailsPage from "./components/Profile/ProfileComponents/UserDetailsP
 import UserPasswordChange from "./components/Profile/ProfileComponents/UserPasswordChange";
 import AddShirt from "./components/Profile/ProfileComponents/AddShirt";
 import AddPant from "./components/Profile/ProfileComponents/AddPant";
+import NotFound from "./components/MultiComponents/NotFound";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,7 +36,9 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/auth" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="*" element={<NotFound />} />
     </Route>
+    
   )
 );
 
