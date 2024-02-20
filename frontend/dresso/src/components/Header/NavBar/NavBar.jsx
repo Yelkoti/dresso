@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { CgMoreR } from "react-icons/cg";
 import { CgMoreVerticalR } from "react-icons/cg";
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeCredential, setCredentials } from "../../../store/authSlice";
 import { useLogoutMutation } from "../../../store/api/userApiSlice";
+import { toggleIsOpen } from "../../../store/modileViewSlice";
 
 const NavBar = () => {
   const [logout, { isLoading: loggingOffUser, error: errorWhileLoggingOff }] =
@@ -14,11 +14,12 @@ const NavBar = () => {
 
   const dispatch = useDispatch();
 
-  const [toggleMoreOption, setToggleMoreOption] = useState(false);
+  const moreOptions = useSelector((state) => state.mobileView.isOpen);
+
   const { userInfo } = useSelector((state) => state.auth);
 
   const toggleOptionHandler = () => {
-    setToggleMoreOption(!toggleMoreOption);
+    dispatch(toggleIsOpen());
   };
 
   const logoutHandler = async () => {
@@ -45,33 +46,16 @@ const NavBar = () => {
         <div className="flex justify-end space-x-3 text-white font-bold">
           {!isTab && !isDesktop ? (
             <>
-              {!toggleMoreOption ? (
+              {!moreOptions ? (
                 <CgMoreR
                   onClick={(e) => toggleOptionHandler()}
                   className="w-auto h-8"
                 />
               ) : (
-                <div className="flex flex-col relative">
-                  <CgMoreVerticalR
-                    className="w-auto h-8"
-                    onClick={(e) => toggleOptionHandler()}
-                  />
-                  <div
-                    className={`fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 ${
-                      toggleMoreOption ? "block" : "hidden"
-                    }`}
-                    onClick={(e) => toggleOptionHandler()}
-                  >
-                    <div className="bg-white p-4 rounded-md flex flex-col text-gray-600">
-                      <Link to="/profile">Profile</Link>
-                      <Link to="/">Shirts</Link>
-                      <Link to="/">Pants</Link>
-                      <Link to="/auth" onClick={(e) => logoutHandler()}>
-                        Logout
-                      </Link>
-                    </div>
-                  </div>
-                </div>
+                <CgMoreVerticalR
+                  className="w-auto h-8"
+                  onClick={(e) => toggleOptionHandler()}
+                />
               )}
             </>
           ) : (
