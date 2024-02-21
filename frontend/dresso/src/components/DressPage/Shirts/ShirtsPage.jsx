@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ShirtCard from "./ShirtCard";
 import { useGetShirtsQuery } from "../../../store/api/shirtApiSlice";
 import {
@@ -6,7 +6,7 @@ import {
   dressSkeletonLoadingForMobile,
 } from "../../MultiComponents/skeletonLoading";
 import { useMediaQuery } from "react-responsive";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 const ShirtsPage = () => {
   const isTab = useMediaQuery({
@@ -30,13 +30,14 @@ const ShirtsPage = () => {
     !errorWhileLoadingShirts &&
     shirts &&
     shirts.filter((shirt) => {
-      if(shirt.isWashed) return;
+      if (shirt.isWashed) return false;
       const limit = shirt.limit;
       const usedDate = new Date(shirt.usedOn);
       const curDate = new Date(Date.now());
-      const daysDifference = Math.floor(Math.abs(curDate - usedDate) / (1000 * 60 * 60 * 24));
-      if(daysDifference < limit) return shirt;
-      return;
+      const daysDifference = Math.floor(
+        Math.abs(curDate - usedDate) / (1000 * 60 * 60 * 24)
+      );
+      return daysDifference < limit;
     });
 
   const NeedToWashtShirts =
@@ -44,19 +45,20 @@ const ShirtsPage = () => {
     !errorWhileLoadingShirts &&
     shirts &&
     shirts.filter((shirt) => {
-      if (!shirt.use) return;
+      if (!shirt.use) return false;
       const limit = shirt.limit;
       const usedDate = new Date(shirt.usedOn);
       const curDate = new Date(Date.now());
-      const daysDifference = Math.floor(Math.abs(curDate - usedDate) / (1000 * 60 * 60 * 24));
-      if(daysDifference >= limit) return shirt;
-      return;
+      const daysDifference = Math.floor(
+        Math.abs(curDate - usedDate) / (1000 * 60 * 60 * 24)
+      );
+      return daysDifference >= limit;
     });
 
-  const errorHandling = () => {
-    toast.error("Error while loading the shirts data");
-    return <h3 className="font-bold text-gray-600 text-xl mt-2">No data</h3>;
-  };
+  // const errorHandling = () => {
+  //   toast.error("Error while loading the shirts data");
+  //   return <h3 className="font-bold text-gray-600 text-xl mt-2">No data</h3>;
+  // };
 
   return (
     <div className="w-[80%] m-auto space-y-5">
@@ -77,7 +79,7 @@ const ShirtsPage = () => {
           ) : (
             NeedToWashtShirts.map((shirt, index) => (
               <div key={index} className="w-full sm:w-2/3 xl:w-1/2 p-4">
-                <ShirtCard shirt={shirt} />
+                <ShirtCard shirt={shirt} type={"wash"} />
               </div>
             ))
           )}
@@ -100,7 +102,7 @@ const ShirtsPage = () => {
           ) : (
             currentlyUsedShirts.map((shirt, index) => (
               <div key={index} className="w-full sm:w-2/3 xl:w-1/2 p-4">
-                <ShirtCard shirt={shirt} />
+                <ShirtCard shirt={shirt} type={"use"} />
               </div>
             ))
           )}
