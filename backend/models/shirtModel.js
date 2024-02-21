@@ -19,16 +19,16 @@ const shirtSchema = mongoose.Schema({
     required: true,
   },
   usedOn: {
-    type: Date,
+    type: Number,
     default: "",
   },
   isWashed: {
     type: Boolean,
     default: true,
   },
-  canWear: {
+  use: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   limit: {
     type: Number,

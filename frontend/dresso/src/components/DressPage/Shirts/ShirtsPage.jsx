@@ -19,13 +19,44 @@ const ShirtsPage = () => {
     error: errorWhileLoadingShirts,
   } = useGetShirtsQuery();
 
+  const availableShirts =
+    !loadingShirts &&
+    !errorWhileLoadingShirts &&
+    shirts &&
+    shirts.filter((shirt) => shirt.isWashed);
+
+  const currentlyUsedShirts =
+    !loadingShirts &&
+    !errorWhileLoadingShirts &&
+    shirts &&
+    shirts.filter((shirt) => {
+      if(shirt.isWashed) return;
+      const limit = shirt.limit;
+      const usedDate = new Date(shirt.usedOn);
+      const curDate = new Date(Date.now());
+      const daysDifference = Math.floor(Math.abs(curDate - usedDate) / (1000 * 60 * 60 * 24));
+      if(daysDifference < limit) return shirt;
+      return;
+    });
+
+  const NeedToWashtShirts =
+    !loadingShirts &&
+    !errorWhileLoadingShirts &&
+    shirts &&
+    shirts.filter((shirt) => {
+      if (!shirt.use) return;
+      const limit = shirt.limit;
+      const usedDate = new Date(shirt.usedOn);
+      const curDate = new Date(Date.now());
+      const daysDifference = Math.floor(Math.abs(curDate - usedDate) / (1000 * 60 * 60 * 24));
+      if(daysDifference >= limit) return shirt;
+      return;
+    });
 
   const errorHandling = () => {
     toast.error("Error while loading the shirts data");
-    return (
-      <h3 className="font-bold text-gray-600 text-xl mt-2">No data</h3>
-    );
-  }
+    return <h3 className="font-bold text-gray-600 text-xl mt-2">No data</h3>;
+  };
 
   return (
     <div className="w-[80%] m-auto space-y-5">
@@ -35,17 +66,21 @@ const ShirtsPage = () => {
           Need to wash
         </h3>
         <div className="flex flex-wrap justify-center">
-          {loadingShirts
-            ? isTab
-              ? dressSkeletonLoadingForDeskop()
-              : dressSkeletonLoadingForMobile()
-            : errorWhileLoadingShirts
-            ? errorHandling()
-            : shirts.map((shirt, index) => (
-                <div key={index} className="w-full sm:w-2/3 xl:w-1/2 p-4">
-                  <ShirtCard shirt={shirt} />
-                </div>
-              ))}
+          {loadingShirts ? (
+            isTab ? (
+              dressSkeletonLoadingForDeskop()
+            ) : (
+              dressSkeletonLoadingForMobile()
+            )
+          ) : errorWhileLoadingShirts || NeedToWashtShirts.length === 0 ? (
+            <h3 className="font-bold text-gray-600 text-xl mt-2">No data</h3>
+          ) : (
+            NeedToWashtShirts.map((shirt, index) => (
+              <div key={index} className="w-full sm:w-2/3 xl:w-1/2 p-4">
+                <ShirtCard shirt={shirt} />
+              </div>
+            ))
+          )}
         </div>
       </div>
       {/* currently used */}
@@ -54,17 +89,21 @@ const ShirtsPage = () => {
           Currently in Use
         </h3>
         <div className="flex flex-wrap justify-center">
-          {loadingShirts
-            ? isTab
-              ? dressSkeletonLoadingForDeskop()
-              : dressSkeletonLoadingForMobile()
-            : errorWhileLoadingShirts
-            ? <h3 className="font-bold text-gray-600 text-xl mt-2">No data</h3>
-            : shirts.map((shirt, index) => (
-                <div key={index} className="w-full sm:w-2/3 xl:w-1/2 p-4">
-                  <ShirtCard shirt={shirt} />
-                </div>
-              ))}
+          {loadingShirts ? (
+            isTab ? (
+              dressSkeletonLoadingForDeskop()
+            ) : (
+              dressSkeletonLoadingForMobile()
+            )
+          ) : errorWhileLoadingShirts || currentlyUsedShirts.length === 0 ? (
+            <h3 className="font-bold text-gray-600 text-xl mt-2">No data</h3>
+          ) : (
+            currentlyUsedShirts.map((shirt, index) => (
+              <div key={index} className="w-full sm:w-2/3 xl:w-1/2 p-4">
+                <ShirtCard shirt={shirt} />
+              </div>
+            ))
+          )}
         </div>
       </div>
       {/* washed */}
@@ -73,17 +112,21 @@ const ShirtsPage = () => {
           Washed
         </h3>
         <div className="flex flex-wrap justify-center">
-          {loadingShirts
-            ? isTab
-              ? dressSkeletonLoadingForDeskop()
-              : dressSkeletonLoadingForMobile()
-            : errorWhileLoadingShirts
-            ? <h3 className="font-bold text-gray-600 text-xl mt-2">No data</h3>
-            : shirts.map((shirt, index) => (
-                <div key={index} className="w-full sm:w-2/3 xl:w-1/2 p-4">
-                  <ShirtCard shirt={shirt} />
-                </div>
-              ))}
+          {loadingShirts ? (
+            isTab ? (
+              dressSkeletonLoadingForDeskop()
+            ) : (
+              dressSkeletonLoadingForMobile()
+            )
+          ) : errorWhileLoadingShirts || availableShirts.length === 0 ? (
+            <h3 className="font-bold text-gray-600 text-xl mt-2">No data</h3>
+          ) : (
+            availableShirts.map((shirt, index) => (
+              <div key={index} className="w-full sm:w-2/3 xl:w-1/2 p-4">
+                <ShirtCard shirt={shirt} />
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>

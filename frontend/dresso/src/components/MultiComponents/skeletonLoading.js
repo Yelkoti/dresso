@@ -142,7 +142,7 @@ export const dressSkeletonLoadingForMobile = () => {
           <Typography
             as="div"
             variant="h1"
-            className="mb-4 h-3 w-36 rounded-full bg-gray-300"
+            className="mb-4 h-3 w-28 rounded-full bg-gray-300"
           >
             &nbsp;
           </Typography>

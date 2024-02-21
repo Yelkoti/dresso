@@ -16,9 +16,20 @@ export const shirtApiSlice = apiSlice.injectEndpoints({
         url: SHIRTS_URL,
       }),
       providesTags: ["Shirt"],
-      keepUnusedDataFor: 5,
+    }),
+    updateShirts: builder.mutation({
+      query: (data) => ({
+        url: `${SHIRTS_URL}/${data.id}`,
+        method: "PUT",
+        body: data.data,
+      }),
+      invalidatesTags: ["Shirt"],
     }),
   }),
 });
 
-export const { useAddShirtMutation, useGetShirtsQuery } = shirtApiSlice;
+export const {
+  useAddShirtMutation,
+  useGetShirtsQuery,
+  useUpdateShirtsMutation,
+} = shirtApiSlice;

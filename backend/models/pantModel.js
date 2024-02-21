@@ -19,7 +19,7 @@ const pantSchema = mongoose.Schema({
     required: true,
   },
   usedOn: {
-    type: Date,
+    type: Number,
     default: null,
   },
   isWashed: {
