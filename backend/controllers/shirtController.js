@@ -53,7 +53,6 @@ const updateShirtDetails = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("The Shirt you are looking for is not available");
   }
-  console.log("boolean ===>",req.body);
   if (req.body.name) {
     shirt.name = req.body.name;
     const result = await shirt.save();
@@ -66,8 +65,7 @@ const updateShirtDetails = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Can't able to update shirt name");
     }
-  }
-  else if (req.body.description) {
+  } else if (req.body.description) {
     shirt.description = req.body.description;
     const result = await shirt.save();
     if (result) {
@@ -79,8 +77,7 @@ const updateShirtDetails = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Can't able to update shirt description");
     }
-  }
-  else if (req.body.image) {
+  } else if (req.body.image) {
     shirt.image = req.body.image;
     const result = await shirt.save();
     if (result) {
@@ -92,23 +89,37 @@ const updateShirtDetails = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Can't able to update shirt image");
     }
-  }
-  else if(req.body.toggle) {
+  } else if (req.body.toggle) {
     shirt.use = !shirt.use;
     shirt.isWashed = !shirt.isWashed;
-    shirt.usedOn = (shirt.usedOn === null) ? Date.now() : null;
+    shirt.usedOn = shirt.usedOn === null ? Date.now() : null;
     const result = await shirt.save();
-    if(result) {
+    if (result) {
       res.status(200);
       res.json({
         message: `Marked shirt as ${shirt.isWashed ? "washed" : "used"}`,
-      })
-    }
-    else {
+      });
+    } else {
       res.status(400);
-      throw new Error(`Can't able to mark shirt as ${shirt.isWashed ? "washed" : "used"}`);
+      throw new Error(
+        `Can't able to mark shirt as ${shirt.isWashed ? "washed" : "used"}`
+      );
     }
   }
 });
 
-export { addShirtDetails, getAllShirtDetails, updateShirtDetails };
+//@desc     Get shirt details by shirtId
+//@route    GET /shirt/:id
+//@access   Private
+const getShirtDetails = asyncHandler(async (req, res) => {
+  const shirtId = req.params.id;
+  const shirt = await Shirt.findById({ _id: shirtId });
+  if(!shirt) {
+    res.status(404);
+    throw new Error("Shirt Details not Found");
+  }
+  res.status(200);
+  res.json(shirt);
+});
+
+export { addShirtDetails, getAllShirtDetails, updateShirtDetails, getShirtDetails };

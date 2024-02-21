@@ -19,7 +19,7 @@ const Stopwatch = ({ usedTimeInMilliseconds, type }) => {
     const days = Math.floor(time / (1000 * 60 * 60 * 24));
     const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
-    return `${days}:${hours}:${minutes} ${type === "wash" ? "Limit Exceeded." : ""}`;
+    return `${days}d:${hours}h:${minutes}m ${type === "wash" ? "Limit Exceeded." : ""}`;
   };
 
   return (

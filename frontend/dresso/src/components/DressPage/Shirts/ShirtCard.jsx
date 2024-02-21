@@ -10,7 +10,6 @@ const data = {
 };
 
 const ShirtCard = ({ shirt, type }) => {
-  console.log(shirt);
   const [tog, setTog] = useState(shirt.isWashed);
 
   const borderClass =
