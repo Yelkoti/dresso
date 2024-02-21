@@ -9,8 +9,16 @@ export const shirtApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Shirt"],
+    }),
+    getShirts: builder.query({
+      query: () => ({
+        url: SHIRTS_URL,
+      }),
+      providesTags: ["Shirt"],
+      keepUnusedDataFor: 5,
     }),
   }),
 });
 
-export const { useAddShirtMutation } = shirtApiSlice;
+export const { useAddShirtMutation, useGetShirtsQuery } = shirtApiSlice;

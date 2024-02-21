@@ -11,8 +11,6 @@ const Carousel = ({ slides }) => {
     return () => clearInterval(intervalId);
   }, [curr, slides.length]);
 
-  console.log(curr);
-
   return (
     <div className="overflow-hidden sm:w-[100%] lg:w-[40%]">
       <div

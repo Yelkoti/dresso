@@ -38,7 +38,7 @@ const Home = () => {
               >
                 Add Shirt
               </Link>
-              <Link className="bg-gray-600 text-white rounded-md py-1 px-2 hover:bg-gray-400 hover:shadow-lg">
+              <Link to='/shirt' className="bg-gray-600 text-white rounded-md py-1 px-2 hover:bg-gray-400 hover:shadow-lg">
                 Track Shirts
               </Link>
             </div>
@@ -59,7 +59,7 @@ const Home = () => {
               >
                 Add Pant
               </Link>
-              <Link className="bg-gray-600 text-white rounded-md py-1 px-2 hover:bg-gray-400 hover:shadow-lg">
+              <Link to="/pant" className="bg-gray-600 text-white rounded-md py-1 px-2 hover:bg-gray-400 hover:shadow-lg">
                 Track Pants
               </Link>
             </div>

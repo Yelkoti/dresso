@@ -21,12 +21,14 @@ import UserPasswordChange from "./components/Profile/ProfileComponents/UserPassw
 import AddShirt from "./components/Profile/ProfileComponents/AddShirt";
 import AddPant from "./components/Profile/ProfileComponents/AddPant";
 import NotFound from "./components/MultiComponents/NotFound";
+import ShirtsPage from "./components/DressPage/Shirts/ShirtsPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/" element={<Auth />}>
         <Route index={true} path="/" element={<Home />} />
+        <Route path="/shirt" element={<ShirtsPage />} />
         <Route path="/profile" element={<ProfilePage />}>
           <Route index={true} element={<UserDetailsPage />} />
           <Route path="/profile/password" element={<UserPasswordChange />} />

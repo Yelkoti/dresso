@@ -61,8 +61,8 @@ const NavBar = () => {
           ) : (
             <>
               <Link to="/profile">Profile</Link>
-              <Link to="/about">Shirts</Link>
-              <Link to="/testimonials">Pants</Link>
+              <Link to="/shirt">Shirts</Link>
+              <Link to="/pant">Pants</Link>
               <Link to="/auth" onClick={(e) => logoutHandler()}>
                 Logout
               </Link>

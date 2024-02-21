@@ -33,12 +33,11 @@ const addShirtDetails = asyncHandler(async (req, res) => {
 //@access   Private
 const getAllShirtDetails = asyncHandler(async (req, res) => {
   const user = req.user._id;
-  const shirts = await Shirt.find({user});
-  if(shirts) {
+  const shirts = await Shirt.find({ user });
+  if (shirts) {
     res.status(200);
     res.json(shirts);
-  }
-  else {
+  } else {
     res.status(404);
     throw new Error("Resource not Found");
   }
