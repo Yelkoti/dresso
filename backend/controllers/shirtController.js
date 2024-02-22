@@ -105,6 +105,18 @@ const updateShirtDetails = asyncHandler(async (req, res) => {
         `Can't able to mark shirt as ${shirt.isWashed ? "washed" : "used"}`
       );
     }
+  } else if (req.body.limit) {
+    shirt.limit = req.body.limit;
+    const result = await shirt.save();
+    if (result) {
+      res.status(200);
+      res.json({
+        message: "Updated Shirt limit",
+      });
+    } else {
+      res.status(400);
+      throw new Error("Can't able to update shirt limit");
+    }
   }
 });
 
@@ -114,7 +126,7 @@ const updateShirtDetails = asyncHandler(async (req, res) => {
 const getShirtDetails = asyncHandler(async (req, res) => {
   const shirtId = req.params.id;
   const shirt = await Shirt.findById({ _id: shirtId });
-  if(!shirt) {
+  if (!shirt) {
     res.status(404);
     throw new Error("Shirt Details not Found");
   }
@@ -122,4 +134,9 @@ const getShirtDetails = asyncHandler(async (req, res) => {
   res.json(shirt);
 });
 
-export { addShirtDetails, getAllShirtDetails, updateShirtDetails, getShirtDetails };
+export {
+  addShirtDetails,
+  getAllShirtDetails,
+  updateShirtDetails,
+  getShirtDetails,
+};

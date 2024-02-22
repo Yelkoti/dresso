@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
-import { TiTick } from "react-icons/ti";
-import { RxCrossCircled } from "react-icons/rx";
+import React, { useEffect, useRef, useState } from "react";
 import { MdModeEdit } from "react-icons/md";
+import { RxCrossCircled } from "react-icons/rx";
+import { TiTick } from "react-icons/ti";
 import { useMediaQuery } from "react-responsive";
 
-const InputText = ({ label, value, handlerFunc }) => {
+const InputTextArea = ({ label, value, handlerFunc }) => {
   const isTab = useMediaQuery({
     query: "(min-width: 640px)",
   });
@@ -32,7 +32,7 @@ const InputText = ({ label, value, handlerFunc }) => {
   }, []);
 
   const tickHandler = () => {
-    handlerFunc(inputValue);
+    handlerFunc(label, inputValue);
     setFocus(false);
   };
 
@@ -44,23 +44,23 @@ const InputText = ({ label, value, handlerFunc }) => {
   return (
     <div
       ref={inputRef}
-      className={`flex ${isTab ? "flex-row" : "flex-col"} space-x-1 ${
+      className={`flex w-[100%] ${isTab ? "flex-row" : "flex-col"} space-x-1 ${
         isTab ? "items-center" : "items-start"
       }`}
     >
-      <p className="font-bold text-gray-600 w-[85px]">{label}</p>
+      <p className="font-bold text-gray-600 w-24">{label}</p>
       <div
-        className={`flex ${
+        className={`flex w-[100%] ${
           !focus ? "hover:border-2 hover:rounded-md" : ""
         } py-1 px-2 space-x-1`}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
-        <input
+        <textarea 
           id={label}
           ref={inputRef}
           {...(focus ? { autoFocus: true } : {})}
-          className={`py-1 px-2 rounded-md`}
+          className={`py-1 px-2 w-[90%] rounded-md`}
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
@@ -85,4 +85,4 @@ const InputText = ({ label, value, handlerFunc }) => {
   );
 };
 
-export default InputText;
+export default InputTextArea;
