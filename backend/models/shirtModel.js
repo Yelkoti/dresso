@@ -18,6 +18,9 @@ const shirtSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  note: {
+    type: String,
+  },
   usedOn: {
     type: Number,
     default: "",

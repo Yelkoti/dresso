@@ -18,6 +18,9 @@ const pantSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  note: {
+    type: String,
+  },
   usedOn: {
     type: Number,
     default: null,
@@ -26,7 +29,7 @@ const pantSchema = mongoose.Schema({
     type: Boolean,
     default: true,
   },
-  canWear: {
+  use: {
     type: Boolean,
     default: true,
   },

@@ -24,6 +24,9 @@ import NotFound from "./components/MultiComponents/NotFound";
 import ShirtsPage from "./components/DressPage/Shirts/ShirtsPage";
 import ShirtsCardDetails from "./components/DressPage/Shirts/ShirtsCardDetails";
 
+import PantsPage from "./components/DressPage/Pants/PantsPage";
+import PantsCardDetails from "./components/DressPage/Pants/PantsCardDetails";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -31,6 +34,8 @@ const router = createBrowserRouter(
         <Route index={true} path="/" element={<Home />} />
         <Route path="/shirt" element={<ShirtsPage />} />
         <Route path="/shirt/:id" element={<ShirtsCardDetails />} />
+        <Route path="/pant" element={<PantsPage />} />
+        <Route path="/pant/:id" element={<PantsCardDetails />} />
         <Route path="/profile" element={<ProfilePage />}>
           <Route index={true} element={<UserDetailsPage />} />
           <Route path="/profile/password" element={<UserPasswordChange />} />

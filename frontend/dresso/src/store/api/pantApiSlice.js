@@ -10,7 +10,29 @@ export const pantApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    getPants: builder.query({
+      query: () => ({
+        url: PANTS_URL,
+      }),
+      providesTags: ["Pant"],
+      keepUnusedDataFor: 5,
+    }),
+    getPantDetails: builder.query({
+      query: (pantId) => ({
+        url: `${PANTS_URL}/${pantId}`,
+      }),
+      providesTags: ["Pant"],
+      keepUnusedDataFor: 5,
+    }),
+    updatePant: builder.mutation({
+      query: (data) => ({
+        url: `${PANTS_URL}/${data.id}`,
+        method: "PUT",
+        body: data.data,
+      }),
+      invalidatesTags: ["Pant"],
+    }),
   }),
 });
 
-export const { useAddPantMutation } = pantApiSlice;
+export const { useAddPantMutation, useGetPantsQuery, useGetPantDetailsQuery, useUpdatePantMutation } = pantApiSlice;

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useGetShirtDetailsQuery } from "../../../store/api/shirtApiSlice";
+import { useGetPantDetailsQuery } from "../../../store/api/pantApiSlice";
 import InputText from "../../MultiComponents/InputText";
 import InputTextArea from "../../MultiComponents/InputTextArea";
 import Timer from "../../MultiComponents/Timer";
 import { getDaysDifference } from "../../MultiComponents/Utils/timerUtils";
-import { useUpdateShirtMutation } from "../../../store/api/shirtApiSlice";
+import { useUpdatePantMutation } from "../../../store/api/pantApiSlice";
 import { toast } from "react-toastify";
 
-const ShirtsCardDetails = () => {
-  const { id: shirtId } = useParams();
+const PantsCardDetails = () => {
+  const { id: pantId } = useParams();
 
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
@@ -19,25 +19,25 @@ const ShirtsCardDetails = () => {
   const [isWashed, setIsWashed] = useState(false);
   const [limit, setLimit] = useState();
 
-  const [updateShirt] = useUpdateShirtMutation();
+  const [updatePant] = useUpdatePantMutation();
 
   const {
-    data: shirt,
+    data: pant,
     refetch,
-    isLoading: shirtDataLoading,
-    error: errorWhileLoadingShirtData,
-  } = useGetShirtDetailsQuery(shirtId);
+    isLoading: pantDataLoading,
+    error: errorWhileLoadingPantData,
+  } = useGetPantDetailsQuery(pantId);
 
   useEffect(() => {
-    if (shirt) {
-      setName(shirt.name);
-      setImage(shirt.image);
-      setDescription(shirt.description);
-      setIsWashed(shirt.isWashed);
-      setLimit(shirt.limit);
-      setTime(shirt.usedOn);
+    if (pant) {
+      setName(pant.name);
+      setImage(pant.image);
+      setDescription(pant.description);
+      setIsWashed(pant.isWashed);
+      setLimit(pant.limit);
+      setTime(pant.usedOn);
     }
-  }, [shirt]);
+  }, [pant]);
 
   const getType = () => {
     if (isWashed) return "";
@@ -48,8 +48,8 @@ const ShirtsCardDetails = () => {
   const limitButtonsHandler = async (action) => {
     if (action === "incr") {
       try {
-        await updateShirt({
-          id: shirt._id,
+        await updatePant({
+          id: pant._id,
           data: { limit: limit + 1 },
         }).unwrap();
         setLimit(limit + 1);
@@ -57,8 +57,8 @@ const ShirtsCardDetails = () => {
     } else if (action === "decr") {
       if (limit === 1) return;
       try {
-        await updateShirt({
-          id: shirt._id,
+        await updatePant({
+          id: pant._id,
           data: { limit: limit - 1 },
         }).unwrap();
         setLimit(limit - 1);
@@ -69,12 +69,12 @@ const ShirtsCardDetails = () => {
   const nameHandler = async (value) => {
     if (name !== value) {
       try {
-        await updateShirt({
-          id: shirt._id,
+        await updatePant({
+          id: pant._id,
           data: { name: value },
         }).unwrap();
         setName(value);
-        toast.success("Shirt name updated");
+        toast.success("Pant name updated");
       } catch (err) {
         toast.error("Can't able to update name");
         setName(name);
@@ -91,8 +91,8 @@ const ShirtsCardDetails = () => {
     try {
       const updateData =
         change === "note" ? { note: value } : { description: value };
-      await updateShirt({
-        id: shirt._id,
+      await updatePant({
+        id: pant._id,
         data: updateData,
       }).unwrap();
       if (change === "note") {
@@ -100,7 +100,7 @@ const ShirtsCardDetails = () => {
       } else if (change === "description") {
         setDescription(value);
       }
-      toast.success(`Shirt ${change} updated`);
+      toast.success(`Pant ${change} updated`);
     } catch (error) {
       toast.error(`Can't able to update ${change}`);
     }
@@ -108,15 +108,15 @@ const ShirtsCardDetails = () => {
 
   const washUseHandler = async () => {
     try {
-      await updateShirt({id: shirtId, data: {"toggle": true}}).unwrap();
+      await updatePant({id: pantId, data: {"toggle": true}}).unwrap();
       refetch();
-      toast.success(`Marked shirt as ${isWashed ? "use" : "wash"}`);
+      toast.success(`Marked pant as ${isWashed ? "use" : "wash"}`);
     } catch (error) {
-      toast.error(`Error while marking shirt as ${isWashed ? "use" : "wash"}`);
+      toast.error(`Error while marking pant as ${isWashed ? "use" : "wash"}`);
     }
   }
 
-  return shirtDataLoading ? (
+  return pantDataLoading ? (
     <p>Loading</p>
   ) : (
     <div className="sm:w-[80%] sm:m-auto space-y-2">
@@ -138,8 +138,8 @@ const ShirtsCardDetails = () => {
             value={note}
             handlerFunc={noteAndDescriptionHandler}
           />
-          {shirt?.usedOn !== null && (
-            <Timer usedTimeInMilliseconds={shirt.usedOn} type={getType()} />
+          {pant?.usedOn !== null && (
+            <Timer usedTimeInMilliseconds={pant.usedOn} type={getType()} />
           )}
           <div className="relative flex items-center max-w-[11rem]">
             <button
@@ -210,4 +210,4 @@ const ShirtsCardDetails = () => {
   );
 };
 
-export default ShirtsCardDetails;
+export default PantsCardDetails;

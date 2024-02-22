@@ -16,6 +16,7 @@ export const shirtApiSlice = apiSlice.injectEndpoints({
         url: SHIRTS_URL,
       }),
       providesTags: ["Shirt"],
+      keepUnusedDataFor: 5,
     }),
     getShirtDetails: builder.query({
       query: (shirtId) => ({
@@ -24,7 +25,7 @@ export const shirtApiSlice = apiSlice.injectEndpoints({
       providesTags: ["Shirt"],
       keepUnusedDataFor: 5,
     }),
-    updateShirts: builder.mutation({
+    updateShirt: builder.mutation({
       query: (data) => ({
         url: `${SHIRTS_URL}/${data.id}`,
         method: "PUT",
@@ -38,6 +39,6 @@ export const shirtApiSlice = apiSlice.injectEndpoints({
 export const {
   useAddShirtMutation,
   useGetShirtsQuery,
-  useUpdateShirtsMutation,
+  useUpdateShirtMutation,
   useGetShirtDetailsQuery,
 } = shirtApiSlice;

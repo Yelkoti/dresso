@@ -45,7 +45,7 @@ const ShirtsPage = () => {
     !errorWhileLoadingShirts &&
     shirts &&
     shirts.filter((shirt) => {
-      if (!shirt.use) return false;
+      if (shirt.isWashed) return false;
       const limit = shirt.limit;
       const usedDate = new Date(shirt.usedOn);
       const curDate = new Date(Date.now());

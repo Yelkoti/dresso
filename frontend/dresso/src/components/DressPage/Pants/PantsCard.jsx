@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import ToggleButton from "../../MultiComponents/ToggleButton";
 import { Link } from "react-router-dom";
-import { useUpdateShirtMutation } from "../../../store/api/shirtApiSlice";
+import { useUpdatePantMutation } from "../../../store/api/pantApiSlice";
 import { toast } from "react-toastify";
 import Timer from "../../MultiComponents/Timer";
 
@@ -9,8 +9,8 @@ const data = {
   toggle: true,
 };
 
-const ShirtCard = ({ shirt, type }) => {
-  const [tog, setTog] = useState(shirt.isWashed);
+const PantsCard = ({ pant, type }) => {
+  const [tog, setTog] = useState(pant.isWashed);
 
   const borderClass =
     type === "wash"
@@ -20,16 +20,16 @@ const ShirtCard = ({ shirt, type }) => {
       : "border-4 border-yellow-600";
 
   const [
-    updateShirt,
-    // { isLoading: updatingShirtStatus, error: ErrorWhileUpdatingShirtStatus },
-  ] = useUpdateShirtMutation();
+    updatePant,
+    // { isLoading: updatingPantStatus, error: ErrorWhileUpdatingPantStatus },
+  ] = useUpdatePantMutation();
 
   const toggleHandler = async () => {
     try {
-      await updateShirt({ id: shirt._id, data }).unwrap();
+      await updatePant({ id: pant._id, data }).unwrap();
       setTog(!tog);
     } catch (error) {
-      toast.error("Error While updating shirt status");
+      toast.error("Error While updating Pant status");
     }
   };
 
@@ -39,18 +39,18 @@ const ShirtCard = ({ shirt, type }) => {
     >
       <img
         className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-        src={shirt.image}
+        src={pant.image}
         alt=""
       />
       <div className="flex flex-col justify-start items-start p-4 leading-normal">
         <Link
-          to={`/shirt/${shirt._id}`}
+          to={`/pant/${pant._id}`}
           className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
         >
-          {shirt.name}
+          {pant.name}
         </Link>
         <p className="mb-3 font-bold text-gray-600 dark:text-gray-400">
-          {shirt.description}
+          {pant.description}
         </p>
         <p className="font-semibold text-gray-600">some note to be added</p>
         {/* <ToggleButton
@@ -63,8 +63,8 @@ const ShirtCard = ({ shirt, type }) => {
           checkedValue={!tog}
           toggleHandler={toggleHandler}
         /> */}
-        {shirt?.usedOn !== null && (
-          <Timer usedTimeInMilliseconds={shirt.usedOn} type={type} />
+        {pant?.usedOn !== null && (
+          <Timer usedTimeInMilliseconds={pant.usedOn} type={type} />
         )}
         <button
           className="font-bold p-2 bg-gray-600 rounded-md mt-2 text-white hover:bg-gray-400"
@@ -77,4 +77,4 @@ const ShirtCard = ({ shirt, type }) => {
   );
 };
 
-export default ShirtCard;
+export default PantsCard;

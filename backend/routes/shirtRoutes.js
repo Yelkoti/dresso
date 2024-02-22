@@ -1,6 +1,6 @@
-import { addShirtDetails, getAllShirtDetails, updateShirtDetails, getShirtDetails } from "../controllers/shirtController.js";
-import protect from "../middleware/authMiddleWare.js";
 import express from "express";
+import protect from "../middleware/authMiddleWare.js";
+import { addShirtDetails, getAllShirtDetails, updateShirtDetails, getShirtDetails } from "../controllers/shirtController.js";
 
 const router = express.Router();
 
