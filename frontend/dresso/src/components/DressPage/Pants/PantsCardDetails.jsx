@@ -226,7 +226,7 @@ const PantsCardDetails = () => {
               </svg>
             </button>
           </div>
-          <div>
+          <div className="flex flex-col">
             <button
               className="font-bold p-2 bg-gray-600 rounded-md mt-2 text-white hover:bg-gray-400"
               onClick={(e) => washUseHandler()}

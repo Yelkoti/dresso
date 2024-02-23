@@ -5,7 +5,7 @@ const Footer = () => {
 
   return (
     <div className="text-center my-6">
-      <p>Jabbo &copy; {currYear}</p>
+      <p>Jacob &copy; {currYear}</p>
     </div>
   );
 };
