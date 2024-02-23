@@ -15,10 +15,6 @@ connectDB();
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("API is Running");
-});
-
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
@@ -28,5 +24,18 @@ app.use(cookieParser());
 app.use("/users", userRouters);
 app.use("/shirt", shirtRouters);
 app.use("/pant", pantRouters);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/dresso/build")));
+  app.get("*", (req, res) =>
+    res.sendFile(
+      path.resolve(__dirname, "frontend/dresso", "build", "index.html")
+    )
+  );
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is Running");
+  });
+}
 
 app.listen(port, () => console.log(`server running on port ${port}`));
