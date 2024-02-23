@@ -11,6 +11,8 @@ const MoreOption = () => {
 
   const [url, setUrl] = useState("");
 
+  const activeClass = 'bg-gray-400 py-1 pl-1 pr-3 rounded-md text-white';
+
   useEffect(() => {
     setUrl(location.pathname)
   }, [location]);
@@ -42,10 +44,10 @@ const MoreOption = () => {
         onClick={(e) => toggleOptionHandler()}z
       >
         <div className="bg-white p-4 rounded-md flex flex-col text-gray-600 mobile-view absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-          <Link to="/profile">Profile</Link>
-          <Link to="/shirt">Shirts</Link>
-          <Link to="/pant">Pants</Link>
-          <Link to="/auth" onClick={(e) => logoutHandler()}>
+          <Link className={`font-bold text-gray-600 ${url === '/profile' ? activeClass : ""}`} to="/profile">Profile</Link>
+          <Link className={`font-bold text-gray-600 ${url === '/shirt' ? activeClass : ""}`} to="/shirt">Shirts</Link>
+          <Link className={`font-bold text-gray-600 ${url === '/pant' ? activeClass : ""}`} to="/pant">Pants</Link>
+          <Link className="font-bold text-gray-600" to="/auth" onClick={(e) => logoutHandler()}>
             Logout
           </Link>
         </div>

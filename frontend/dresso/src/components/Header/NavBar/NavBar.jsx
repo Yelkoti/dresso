@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { CgMoreR } from "react-icons/cg";
@@ -7,8 +7,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeCredential, setCredentials } from "../../../store/authSlice";
 import { useLogoutMutation } from "../../../store/api/userApiSlice";
 import { toggleIsOpen } from "../../../store/modileViewSlice";
+import { useLocation } from "react-router-dom";
 
 const NavBar = () => {
+  const location = useLocation();
+  const [url, setUrl] = useState(null);
+
+  const active = "underline";
+
+  useEffect(() => {
+    setUrl(location.pathname);
+  }, [location]);
+
   const [logout, { isLoading: loggingOffUser, error: errorWhileLoggingOff }] =
     useLogoutMutation();
 
@@ -60,10 +70,10 @@ const NavBar = () => {
             </>
           ) : (
             <>
-              <Link to="/profile">Profile</Link>
-              <Link to="/shirt">Shirts</Link>
-              <Link to="/pant">Pants</Link>
-              <Link to="/auth" onClick={(e) => logoutHandler()}>
+              <Link className={`${url === '/profile' ? active : ""} hover:underline`} to="/profile">Profile</Link>
+              <Link className={`${url === '/shirt' ? active : ""} hover:underline`} to="/shirt">Shirts</Link>
+              <Link className={`${url === '/pant' ? active : ""} hover:underline`} to="/pant">Pants</Link>
+              <Link className="hover:underline" to="/auth" onClick={(e) => logoutHandler()}>
                 Logout
               </Link>
             </>
