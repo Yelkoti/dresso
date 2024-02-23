@@ -20,6 +20,7 @@ const pantSchema = mongoose.Schema({
   },
   note: {
     type: String,
+    default: null,
   },
   usedOn: {
     type: Number,
