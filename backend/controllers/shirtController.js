@@ -77,6 +77,18 @@ const updateShirtDetails = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Can't able to update shirt description");
     }
+  } else if (req.body.note) {
+    shirt.note = req.body.note;
+    const result = await shirt.save();
+    if (result) {
+      res.status(200);
+      res.json({
+        message: "Updated Shirt note",
+      });
+    } else {
+      res.status(400);
+      throw new Error("Can't able to update shirt note");
+    }
   } else if (req.body.image) {
     shirt.image = req.body.image;
     const result = await shirt.save();
@@ -157,5 +169,5 @@ export {
   getAllShirtDetails,
   updateShirtDetails,
   getShirtDetails,
-  deleteShirtDetails
+  deleteShirtDetails,
 };

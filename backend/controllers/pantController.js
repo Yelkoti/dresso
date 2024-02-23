@@ -77,6 +77,18 @@ const updatePantDetails = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Can't able to update pant description");
     }
+  } else if (req.body.note) {
+    pant.note = req.body.note;
+    const result = await pant.save();
+    if (result) {
+      res.status(200);
+      res.json({
+        message: "Updated Pant note",
+      });
+    } else {
+      res.status(400);
+      throw new Error("Can't able to update pant note");
+    }
   } else if (req.body.image) {
     pant.image = req.body.image;
     const result = await pant.save();
