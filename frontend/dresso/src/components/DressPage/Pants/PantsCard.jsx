@@ -52,7 +52,7 @@ const PantsCard = ({ pant, type }) => {
         <p className="mb-3 font-bold text-gray-600 dark:text-gray-400">
           {pant.description}
         </p>
-        <p className="font-semibold text-gray-600">some note to be added</p>
+        <p className="font-semibold text-gray-600">{pant.note}</p>
         {/* <ToggleButton
           label={"Wash"}
           checkedValue={tog}
