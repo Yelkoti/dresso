@@ -40,7 +40,7 @@ const ShirtsPage = () => {
       return daysDifference < limit;
     });
 
-  const NeedToWashtShirts =
+  const needToWashtShirts =
     !loadingShirts &&
     !errorWhileLoadingShirts &&
     shirts &&
@@ -74,10 +74,10 @@ const ShirtsPage = () => {
             ) : (
               dressSkeletonLoadingForMobile()
             )
-          ) : errorWhileLoadingShirts || NeedToWashtShirts.length === 0 ? (
+          ) : errorWhileLoadingShirts || needToWashtShirts.length === 0 ? (
             <h3 className="font-bold text-gray-600 text-xl mt-2">No data</h3>
           ) : (
-            NeedToWashtShirts.map((shirt, index) => (
+            needToWashtShirts.map((shirt, index) => (
               <div key={index} className="w-full sm:w-2/3 xl:w-1/2 p-4">
                 <ShirtCard shirt={shirt} type={"wash"} />
               </div>

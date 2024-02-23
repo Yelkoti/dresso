@@ -134,4 +134,28 @@ const getPantDetails = asyncHandler(async (req, res) => {
   res.json(pant);
 });
 
-export { addPantDetails, getAllPantDetails, updatePantDetails, getPantDetails };
+//@desc    Delete the pant by ID
+//@route   Delete /pant/:id
+//@access  Private
+const deletePantDetails = asyncHandler(async (req, res) => {
+  const pantId = req.params.id;
+  const pant = await Pant.findOne({ _id: pantId });
+  if (pant) {
+    await pant.deleteOne();
+    res.status(200);
+    res.json({
+      message: "Deleted pant details",
+    });
+  } else {
+    res.status(400);
+    throw new Error("Can't able to find pant details");
+  }
+});
+
+export {
+  addPantDetails,
+  getAllPantDetails,
+  updatePantDetails,
+  getPantDetails,
+  deletePantDetails,
+};

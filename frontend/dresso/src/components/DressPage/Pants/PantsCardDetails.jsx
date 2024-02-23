@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useGetPantDetailsQuery } from "../../../store/api/pantApiSlice";
+import {
+  useGetPantDetailsQuery,
+  useUpdatePantMutation,
+  useDeletePantMutation,
+} from "../../../store/api/pantApiSlice";
 import InputText from "../../MultiComponents/InputText";
 import InputTextArea from "../../MultiComponents/InputTextArea";
 import Timer from "../../MultiComponents/Timer";
 import { getDaysDifference } from "../../MultiComponents/Utils/timerUtils";
-import { useUpdatePantMutation } from "../../../store/api/pantApiSlice";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const PantsCardDetails = () => {
   const { id: pantId } = useParams();
@@ -20,6 +24,8 @@ const PantsCardDetails = () => {
   const [limit, setLimit] = useState();
 
   const [updatePant] = useUpdatePantMutation();
+  const [deletePant] = useDeletePantMutation();
+  const navigate = useNavigate();
 
   const {
     data: pant,
@@ -108,13 +114,23 @@ const PantsCardDetails = () => {
 
   const washUseHandler = async () => {
     try {
-      await updatePant({id: pantId, data: {"toggle": true}}).unwrap();
+      await updatePant({ id: pantId, data: { toggle: true } }).unwrap();
       refetch();
       toast.success(`Marked pant as ${isWashed ? "use" : "wash"}`);
     } catch (error) {
       toast.error(`Error while marking pant as ${isWashed ? "use" : "wash"}`);
     }
-  }
+  };
+
+  const deleteHandler = async () => {
+    try {
+      await deletePant(pantId);
+      toast.success("deleted pant details");
+      navigate("/pant");
+    } catch (error) {
+      toast.error("error while deleting pant details");
+    }
+  };
 
   return pantDataLoading ? (
     <p>Loading</p>
@@ -198,12 +214,20 @@ const PantsCardDetails = () => {
               </svg>
             </button>
           </div>
-          <button
-            className="font-bold p-2 bg-gray-600 rounded-md mt-2 text-white hover:bg-gray-400"
-            onClick={(e) => washUseHandler()}
-          >
-            {isWashed ? "use" : "wash"}
-          </button>
+          <div>
+            <button
+              className="font-bold p-2 bg-gray-600 rounded-md mt-2 text-white hover:bg-gray-400"
+              onClick={(e) => washUseHandler()}
+            >
+              {isWashed ? "use" : "wash"}
+            </button>
+            <button
+              className="font-bold p-2 sm:w-20 bg-gray-600 rounded-md mt-2 text-white hover:bg-gray-400"
+              onClick={(e) => deleteHandler()}
+            >
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </div>

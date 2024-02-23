@@ -134,9 +134,28 @@ const getShirtDetails = asyncHandler(async (req, res) => {
   res.json(shirt);
 });
 
+//@desc    Delete the shirt by ID
+//@route   Delete /shirt/:id
+//@access  Private
+const deleteShirtDetails = asyncHandler(async (req, res) => {
+  const shirtId = req.params.id;
+  const shirt = await Shirt.findOne({ _id: shirtId });
+  if (shirt) {
+    await shirt.deleteOne();
+    res.status(200);
+    res.json({
+      message: "Deleted shirt details",
+    });
+  } else {
+    res.status(400);
+    throw new Error("Can't able to find shirt details");
+  }
+});
+
 export {
   addShirtDetails,
   getAllShirtDetails,
   updateShirtDetails,
   getShirtDetails,
+  deleteShirtDetails
 };

@@ -32,7 +32,20 @@ export const pantApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Pant"],
     }),
+    deletePant: builder.mutation({
+      query: (pantId) => ({
+        url: `${PANTS_URL}/${pantId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Pant"],
+    }),
   }),
 });
 
-export const { useAddPantMutation, useGetPantsQuery, useGetPantDetailsQuery, useUpdatePantMutation } = pantApiSlice;
+export const {
+  useAddPantMutation,
+  useGetPantsQuery,
+  useGetPantDetailsQuery,
+  useUpdatePantMutation,
+  useDeletePantMutation,
+} = pantApiSlice;

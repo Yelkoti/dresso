@@ -40,7 +40,7 @@ const PantsPage = () => {
       return daysDifference < limit;
     });
 
-  const NeedToWashtPants =
+  const needToWashtPants =
     !loadingPants &&
     !errorWhileLoadingPants &&
     pants &&
@@ -54,11 +54,6 @@ const PantsPage = () => {
       );
       return daysDifference >= limit;
     });
-
-    console.log("pants => ", pants);
-    console.log("available => ",availablePants);
-    console.log("currently use => ", currentlyUsedPants);
-    console.log("need to wash => ", NeedToWashtPants);
 
   // const errorHandling = () => {
   //   toast.error("Error while loading the pants data");
@@ -79,10 +74,10 @@ const PantsPage = () => {
             ) : (
               dressSkeletonLoadingForMobile()
             )
-          ) : errorWhileLoadingPants || NeedToWashtPants.length === 0 ? (
+          ) : errorWhileLoadingPants || needToWashtPants.length === 0 ? (
             <h3 className="font-bold text-gray-600 text-xl mt-2">No data</h3>
           ) : (
-            NeedToWashtPants.map((pant, index) => (
+            needToWashtPants.map((pant, index) => (
               <div key={index} className="w-full sm:w-2/3 xl:w-1/2 p-4">
                 <PantCard pant={pant} type={"wash"} />
               </div>

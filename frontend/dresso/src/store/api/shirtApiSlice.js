@@ -33,6 +33,13 @@ export const shirtApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Shirt"],
     }),
+    deleteShirt: builder.mutation({
+      query: (shirtId) => ({
+        url: `${SHIRTS_URL}/${shirtId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Shirt"],
+    }),
   }),
 });
 
@@ -41,4 +48,5 @@ export const {
   useGetShirtsQuery,
   useUpdateShirtMutation,
   useGetShirtDetailsQuery,
+  useDeleteShirtMutation,
 } = shirtApiSlice;
