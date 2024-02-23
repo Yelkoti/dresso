@@ -11,9 +11,18 @@ import Timer from "../../MultiComponents/Timer";
 import { getDaysDifference } from "../../MultiComponents/Utils/timerUtils";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
+import {
+  dressDetailsSkeletonLoadingForDesktop,
+  dressSkeletonLoadingForMobile,
+} from "../../MultiComponents/skeletonLoading";
 
 const PantsCardDetails = () => {
   const { id: pantId } = useParams();
+
+  const isTab = useMediaQuery({
+    query: "(min-widht: 640px)",
+  });
 
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
@@ -131,9 +140,12 @@ const PantsCardDetails = () => {
       toast.error("error while deleting pant details");
     }
   };
-
   return pantDataLoading ? (
-    <p>Loading</p>
+    isTab ? (
+      dressDetailsSkeletonLoadingForDesktop()
+    ) : (
+      dressSkeletonLoadingForMobile()
+    )
   ) : (
     <div className="sm:w-[80%] sm:m-auto space-y-2">
       <div className="flex p-4 flex-col sm:m-auto sm:flex-row bg-white rounded-md hover:shadow-md">
