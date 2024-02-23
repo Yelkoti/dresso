@@ -6,6 +6,12 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import shirtRouters from "./routes/shirtRoutes.js";
 import pantRouters from "./routes/pantRoutes.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 dotenv.config();
 
@@ -26,10 +32,10 @@ app.use("/shirt", shirtRouters);
 app.use("/pant", pantRouters);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/frontend/dresso/build")));
+  app.use(express.static(path.join(__dirname, "../frontend/dresso/build")));
   app.get("*", (req, res) =>
     res.sendFile(
-      path.resolve(__dirname, "frontend/dresso", "build", "index.html")
+      path.resolve(__dirname, "../frontend/dresso", "build", "index.html")
     )
   );
 } else {
